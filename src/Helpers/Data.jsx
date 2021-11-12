@@ -1,25 +1,25 @@
 export const genders = [
   {
     label: "Male",
-    value: "male",
+    value: "M",
   },
   {
     label: "Female",
-    value: "female",
+    value: "F",
   },
   {
     label: "Other",
-    value: "other",
+    value: "T",
   },
 ];
 export const yesNo = [
   {
     label: "Yes",
-    value: "yes",
+    value: "Y",
   },
   {
     label: "No",
-    value: "no",
+    value: "N",
   },
 ];
 export const rating = [

@@ -32,6 +32,7 @@ export const Education = (
       label={"Board Name"}
       component={FormInput}
       // validator={nameValidator}
+      validator={requiredValidator}
     />
     <Field
       key={"matricYearOfPassing"}
@@ -40,7 +41,7 @@ export const Education = (
       label={"Year of Passing"}
       component={FormInput}
       // data={genders}
-      // validator={requiredValidator}
+      validator={requiredValidator}
     />
     <Field
       key={"matricMarksObtained"}
@@ -53,7 +54,7 @@ export const Education = (
       // data={}
       // data={roundOfAllotment}
       // data={genders}
-      // validator={requiredValidator}
+      validator={requiredValidator}
     />
     <Field
       key={"matricPercentage"}
@@ -66,7 +67,7 @@ export const Education = (
       // data={}
       // data={roundOfAllotment}
       // data={genders}
-      // validator={requiredValidator}
+      validator={requiredValidator}
     />
     <div className="head form-content-separator">Inter</div>
     <Field
@@ -76,6 +77,7 @@ export const Education = (
       label={"Board Name"}
       component={FormInput}
       // validator={nameValidator}
+      validator={requiredValidator}
     />
     <Field
       key={"interYearOfPassing"}
@@ -84,7 +86,7 @@ export const Education = (
       label={"Year of Passing"}
       component={FormInput}
       // data={genders}
-      // validator={requiredValidator}
+      validator={requiredValidator}
     />
     <Field
       key={"interMarksObtained"}
@@ -97,7 +99,7 @@ export const Education = (
       // data={}
       // data={roundOfAllotment}
       // data={genders}
-      // validator={requiredValidator}
+      validator={requiredValidator}
     />
     <Field
       key={"interPercentage"}
@@ -110,7 +112,7 @@ export const Education = (
       // data={}
       // data={roundOfAllotment}
       // data={genders}
-      // validator={requiredValidator}
+      validator={requiredValidator}
     />
   </div>
 );

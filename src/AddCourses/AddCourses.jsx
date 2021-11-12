@@ -37,7 +37,7 @@ import {
 } from "../Helpers/Data";
 import Cookies from "universal-cookie";
 import { Link } from "react-router-dom";
-import { apiCallPost } from "../ApiCall/ApiCall";
+import { apiCallPost, apiCallPostToken } from "../ApiCall/ApiCall";
 // import "./Registration.css";
 // import { DBMS } from "./DBMS";
 // import { Details } from "./Details";
@@ -53,7 +53,7 @@ import { apiCallPost } from "../ApiCall/ApiCall";
 //   Education,
 //   Documents,
 // ];
-export const Login = () => {
+export const AddCourses = () => {
   // const [step, setStep] = React.useState(0);
   const [formState, setFormState] = React.useState({});
   // const [steps, setSteps] = React.useState([
@@ -110,20 +110,22 @@ export const Login = () => {
       // if (isLastStep) {
       alert(JSON.stringify(values));
 
-      const url = "http://localhost:5000/api/login";
+      const url = "http://localhost:5000/api/addCourse";
       const payload = {
-        user: {
-          username: values.username,
-          password: values.password,
+        course: {
+          code: values.code,
+          name: values.name,
         },
       };
       // // const payload = JSON.stringify(values);
-      const response = await apiCallPost(url, payload);
+      const cookies = new Cookies();
+      const token = cookies.get("accessToken");
+      // cookies.set("accessToken", response.accessToken, { path: "/" });
+      // console.log(response);
+      // console.log(cookies.get("accessToken"));
+      const response = await apiCallPostToken(url, payload, token);
       if (response.success === true) {
-        const cookies = new Cookies();
-        cookies.set("accessToken", response.accessToken, { path: "/" });
-        console.log(response);
-        console.log(cookies.get("accessToken"));
+        alert("course added");
         history.replace("/");
         window.location.reload(true);
       }
@@ -165,20 +167,20 @@ export const Login = () => {
             >
               {
                 <div>
-                  <div className="head form-content-separator">Login</div>
+                  <div className="head form-content-separator">Add Course</div>
                   <Field
-                    key={"username"}
-                    id={"username"}
-                    name={"username"}
-                    label={"Username"}
+                    key={"name"}
+                    id={"name"}
+                    name={"name"}
+                    label={"Course Name"}
                     component={FormInput}
                     // validator={nameValidator}
                   />
                   <Field
-                    key={"password"}
-                    id={"password"}
-                    name={"password"}
-                    label={"Password"}
+                    key={"code"}
+                    id={"code"}
+                    name={"code"}
+                    label={"Course Code"}
                     component={FormInput}
                     // data={(function () {
                     //   const stateNames = [];
@@ -204,13 +206,6 @@ export const Login = () => {
                 }}
                 className={"k-form-buttons k-buttons-end"}
               >
-                <span
-                  style={{
-                    alignSelf: "center",
-                  }}
-                >
-                  Don't have an account? <Link to="/signup"> Sign Up</Link>
-                </span>
                 <div>
                   {/* {
                     <Button
@@ -227,7 +222,7 @@ export const Login = () => {
                     // disabled={!formRenderProps.allowSubmit}
                     // onClick={formRenderProps.onSubmit}
                   >
-                    Login
+                    Add
                   </Button>
                 </div>
               </div>
@@ -239,4 +234,4 @@ export const Login = () => {
   );
 };
 
-export default Login;
+export default AddCourses;

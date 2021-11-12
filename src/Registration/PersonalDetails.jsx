@@ -11,6 +11,7 @@ import {
   FormNumericTextBox,
   FormDropDownTree,
   FormDropDownList,
+  FormUpload,
 } from "../Helpers/FormComponents";
 import { nameValidator, requiredValidator } from "../Helpers/Validators";
 import { countries, genders, minorityDetails, yesNo } from "../Helpers/Data";
@@ -25,8 +26,18 @@ export const PersonalDetails = (
       name={"name"}
       label={"Name"}
       component={FormInput}
-      // validator={nameValidator}
+      validator={requiredValidator}
     />
+    <Field
+      key={"profilePhoto"}
+      id={"profilePhoto"}
+      name={"profilePhoto"}
+      label={"Profile Photo"}
+      component={FormUpload}
+      // validator={nameValidator}
+      validator={requiredValidator}
+    />
+
     <Field
       key={"gender"}
       id={"gender"}
@@ -45,7 +56,7 @@ export const PersonalDetails = (
       label={"Blood Group"}
       component={FormInput}
       // data={genders}
-      // validator={requiredValidator}
+      validator={requiredValidator}
     />
     <Field
       key={"dob"}
@@ -54,6 +65,7 @@ export const PersonalDetails = (
       label={"Date of Birth"}
       // optional={true}
       component={FormDatePicker}
+      validator={requiredValidator}
     />
     <Field
       key={"mobile1"}
@@ -62,6 +74,7 @@ export const PersonalDetails = (
       label={"Mobile 1"}
       // optional={true}
       component={FormInput}
+      validator={requiredValidator}
     />
     <Field
       key={"mobile2"}
@@ -70,6 +83,7 @@ export const PersonalDetails = (
       label={"Mobile 2"}
       // optional={true}
       component={FormInput}
+      validator={requiredValidator}
     />
     <Field
       key={"emailId"}
@@ -78,6 +92,7 @@ export const PersonalDetails = (
       label={"Email ID"}
       // optional={true}
       component={FormInput}
+      validator={requiredValidator}
     />
     <Field
       key={"aadharNumber"}
@@ -86,6 +101,7 @@ export const PersonalDetails = (
       label={"Aadhar Number"}
       // optional={true}
       component={FormInput}
+      validator={requiredValidator}
     />
     <Field
       key={"fathersName"}
@@ -94,6 +110,7 @@ export const PersonalDetails = (
       label={"Father's Name"}
       // optional={true}
       component={FormInput}
+      validator={requiredValidator}
     />
     <Field
       key={"fathersOccupation"}
@@ -102,6 +119,7 @@ export const PersonalDetails = (
       label={"Father's Occupation"}
       // optional={true}
       component={FormInput}
+      validator={requiredValidator}
     />
     <Field
       key={"mothersName"}
@@ -110,6 +128,7 @@ export const PersonalDetails = (
       label={"Mother's Name"}
       // optional={true}
       component={FormInput}
+      validator={requiredValidator}
     />
     <Field
       key={"mothersOccupation"}
@@ -118,6 +137,7 @@ export const PersonalDetails = (
       label={"Mother's Occupation"}
       // optional={true}
       component={FormInput}
+      validator={requiredValidator}
     />
     <Field
       key={"branch"}
@@ -126,6 +146,7 @@ export const PersonalDetails = (
       label={"Branch"}
       // optional={true}
       component={FormInput}
+      validator={requiredValidator}
     />
     <Field
       key={"physicallyDisabled"}
@@ -135,6 +156,7 @@ export const PersonalDetails = (
       layout={"horizontal"}
       // optional={true}
       component={FormRadioGroup}
+      validator={requiredValidator}
       data={yesNo}
     />
     <Field
@@ -144,6 +166,7 @@ export const PersonalDetails = (
       label={"Minority Details"}
       // optional={true}
       component={FormDropDownList}
+      validator={requiredValidator}
       // layout={"vertical"}
       data={minorityDetails}
     />

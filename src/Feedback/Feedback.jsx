@@ -9,40 +9,60 @@ import { CN } from "./CN";
 import { TOC } from "./TOC";
 import { SA } from "./SA";
 import { TIS } from "./TIS";
-const stepPages = [Details, DBMS, CN, TOC, SA, TIS];
+import { apiCallGetToken, apiCallPostToken } from "../ApiCall/ApiCall";
+import Cookies from "universal-cookie";
+
+let stepPages = [Details];
+
 export const Feedback = () => {
   const [step, setStep] = React.useState(0);
   const [formState, setFormState] = React.useState({});
-  const [steps, setSteps] = React.useState([
+  const [steps, setSteps] = React.useState([]);
+  const [selectedCourses, setSelectedCourses] = React.useState([]);
+
+  let arr = [];
+  let newArr = [
     {
       label: "Details",
       isValid: undefined,
     },
-    {
-      label: "DBMS",
-      isValid: undefined,
-    },
-    {
-      label: "CN",
-      isValid: undefined,
-    },
-    {
-      label: "TOC",
-      isValid: undefined,
-    },
-    {
-      label: "SA",
-      isValid: undefined,
-    },
-    {
-      label: "TIS",
-      isValid: undefined,
-    },
-  ]);
+  ];
+  React.useEffect(async () => {
+    const cookies = new Cookies();
+    const accessToken = cookies.get("accessToken");
+
+    const url = "http://localhost:5000/api/getCoursesSpecific";
+    const res = await apiCallGetToken(url, accessToken);
+    if (res.success === true) {
+      const result = res.msg;
+      result.map((e) => {
+        arr.push(e.code);
+        newArr.push({
+          label: e.name,
+          isValid: undefined,
+        });
+        if (e.name === "DBMS") {
+          stepPages.push(DBMS);
+        } else if (e.name === "CN") {
+          stepPages.push(CN);
+        } else if (e.name === "TOC") {
+          stepPages.push(TOC);
+        } else if (e.name === "SA") {
+          stepPages.push(SA);
+        } else if (e.name === "TIS") {
+          stepPages.push(TIS);
+        }
+      });
+    }
+    setSteps(newArr);
+    setSelectedCourses(arr);
+  }, []);
+
   const lastStepIndex = steps.length - 1;
   const isLastStep = lastStepIndex === step;
+
   const onStepSubmit = React.useCallback(
-    (event) => {
+    async (event) => {
       const { isValid, values } = event;
       const currentSteps = steps.map((currentStep, index) => ({
         ...currentStep,
@@ -59,6 +79,100 @@ export const Feedback = () => {
 
       if (isLastStep) {
         alert(JSON.stringify(values));
+        let dataArr = [];
+        selectedCourses.map((e) => {
+          if (e === 101) {
+            dataArr.push({
+              course_code: e,
+              q1: values.dbmsQ1,
+              q2: values.dbmsQ2,
+              q3: values.dbmsQ3,
+              q4: values.dbmsQ4,
+              q5: values.dbmsQ5,
+              q6: values.dbmsQ6,
+              q7: values.dbmsQ7,
+              q8: values.dbmsQ8,
+              q9: values.dbmsQ9,
+            });
+          } else if (e === 102) {
+            dataArr.push({
+              course_code: e,
+              q1: values.cnQ1,
+              q2: values.cnQ2,
+              q3: values.cnQ3,
+              q4: values.cnQ4,
+              q5: values.cnQ5,
+              q6: values.cnQ6,
+              q7: values.cnQ7,
+              q8: values.cnQ8,
+              q9: values.cnQ9,
+            });
+          } else if (e === 103) {
+            dataArr.push({
+              course_code: e,
+              q1: values.tocQ1,
+              q2: values.tocQ2,
+              q3: values.tocQ3,
+              q4: values.tocQ4,
+              q5: values.tocQ5,
+              q6: values.tocQ6,
+              q7: values.tocQ7,
+              q8: values.tocQ8,
+              q9: values.tocQ9,
+            });
+          } else if (e === 104) {
+            dataArr.push({
+              course_code: e,
+              q1: values.saQ1,
+              q2: values.saQ2,
+              q3: values.saQ3,
+              q4: values.saQ4,
+              q5: values.saQ5,
+              q6: values.saQ6,
+              q7: values.saQ7,
+              q8: values.saQ8,
+              q9: values.saQ9,
+            });
+          } else if (e === 105) {
+            dataArr.push({
+              course_code: e,
+              q1: values.tisQ1,
+              q2: values.tisQ2,
+              q3: values.tisQ3,
+              q4: values.tisQ4,
+              q5: values.tisQ5,
+              q6: values.tisQ6,
+              q7: values.tisQ7,
+              q8: values.tisQ8,
+              q9: values.tisQ9,
+            });
+          }
+        });
+
+        const cookies = new Cookies();
+        const accessToken = cookies.get("accessToken");
+        let usernamevar;
+
+        const usernameUrl = "http://localhost:5000/api/getUsername";
+        const res = await apiCallGetToken(usernameUrl, accessToken);
+
+        if (res.success === true) {
+          const result = res.username;
+          usernamevar = result;
+        }
+
+        const url = "http://localhost:5000/api/postFeedback";
+        const payload = {
+          feedback: {
+            student_id: usernamevar,
+            courses: dataArr,
+          },
+        };
+
+        const response = await apiCallPostToken(url, payload, accessToken);
+        if (response.success === true) {
+          console.log(response);
+        }
       }
     },
     [steps, isLastStep, step, lastStepIndex]

@@ -9,7 +9,6 @@ import { JeeDetails } from "./JeeDetails";
 import { FeeDetails } from "./FeeDetails";
 import { Address } from "./Address";
 import { Education } from "./Education";
-import { Documents } from "./Documents";
 import { Field } from "@progress/kendo-react-form";
 import {
   FormInput,
@@ -22,6 +21,7 @@ import {
   FormNumericTextBox,
   FormDropDownTree,
   FormDropDownList,
+  FormUpload,
 } from "../Helpers/FormComponents";
 import { nameValidator, requiredValidator } from "../Helpers/Validators";
 import {
@@ -34,22 +34,17 @@ import {
   states,
   state_district,
 } from "../Helpers/Data";
+import * as moment from "moment";
 import "./Registration.css";
-import apiCall from "../Registration/ApiCall";
+// import apiCall from "../Registration/ApiCall";
+import { apiCallPost } from "../ApiCall/ApiCall";
 // import { DBMS } from "./DBMS";
 // import { Details } from "./Details";
 // import { CN } from "./Feedback/CN";
 // import { TOC } from "./TOC";
 // import { SA } from "./SA";
 // import { TIS } from "./TIS";
-const stepPages = [
-  PersonalDetails,
-  JeeDetails,
-  FeeDetails,
-  Address,
-  Education,
-  Documents,
-];
+const stepPages = [PersonalDetails, JeeDetails, FeeDetails, Address, Education];
 export const Registration = () => {
   const [step, setStep] = React.useState(0);
   const [formState, setFormState] = React.useState({});
@@ -81,6 +76,120 @@ export const Registration = () => {
   ]);
 
   const [correspondenceState, setCorrespondenceState] = React.useState("");
+  const [profilePhoto, setProfilePhoto] = React.useState("");
+  const [seatAllotmentLetter, setSeatAllotmentLetter] = React.useState("");
+  const [jeeRankCard, setJeeRankCard] = React.useState("");
+  const [photoIdProof, setPhotoIdProof] = React.useState("");
+  const [dobProof, setDobProof] = React.useState("");
+  const [incomeCertificate, setIncomeCertificate] = React.useState("");
+  const [aadharCard, setAadharCard] = React.useState("");
+  const [casteCertificate, setCasteCertificate] = React.useState("");
+  const [casteValidity, setCasteValidity] = React.useState("");
+  const [obcNclCertificate, setObcNclCertificate] = React.useState("");
+  const [disabilityCertificate, setDisabilityCertificate] = React.useState("");
+  const [transferCertificate, setTransferCertificate] = React.useState("");
+  const [migrationCertificate, setMigrationCertificate] = React.useState("");
+  const [gapCertificate, setGapCertificate] = React.useState("");
+
+  const uploadProfilePhoto = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setProfilePhoto(base64);
+  };
+  const uploadSeatAllotmentLetter = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setSeatAllotmentLetter(base64);
+  };
+  const uploadJeeRankCard = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setJeeRankCard(base64);
+  };
+  const uploadPhotoIdProof = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setPhotoIdProof(base64);
+  };
+  const uploadDobProof = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setDobProof(base64);
+  };
+  const uploadIncomeCertificate = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setIncomeCertificate(base64);
+  };
+  const uploadAadharCard = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setAadharCard(base64);
+  };
+  const uploadCasteCertificate = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setCasteCertificate(base64);
+  };
+  const uploadCasteValidity = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setCasteValidity(base64);
+  };
+  const uploadObcNclCertificate = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setObcNclCertificate(base64);
+  };
+  const uploadDisabilityCertificate = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setDisabilityCertificate(base64);
+  };
+  const uploadTransferCertificate = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setTransferCertificate(base64);
+  };
+  const uploadMigrationCertificate = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setMigrationCertificate(base64);
+  };
+  const uploadGapCertificate = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    // console.log(base64);
+    setGapCertificate(base64);
+  };
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
   // const [permanentState, setPermanentState] = React.useState("");
 
   const lastStepIndex = steps.length - 1;
@@ -105,17 +214,127 @@ export const Registration = () => {
 
       if (isLastStep) {
         alert(JSON.stringify(values));
-        // const response = await fetch("http://localhost:5000/api/newAdmission", {
-        //   method: "POST",
-        //   headers: {
-        //     // "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-        //     // "x-rapidapi-key": process.env.REACT_APP_API_KEY,
-        //     "content-type": "application/json",
-        //     accept: "application/json",
-        //   },
-        //   body: JSON.stringify({}),
-        // });
-        // const jsonResponse = await response.json();
+        // console.log(values.profilePhoto);
+        console.log(seatAllotmentLetter);
+
+        const payload = {
+          form: {
+            is_verified: false,
+            id: "",
+            name: values.name,
+            photo: "profile_url",
+            gender: values.gender,
+            blood_group: values.bloodGroup,
+            dob:
+              values.dob.getFullYear() +
+              "-" +
+              parseInt(values.dob.getMonth() + 1) +
+              "-" +
+              values.dob.getDate(),
+            mobile1: values.mobile1,
+            mobile2: values.mobile2,
+            email_id: values.emailId,
+            aadhar_number: values.aadharNumber,
+            fathers_name: values.fathersName,
+            fathers_occupation: values.fathersOccupation,
+            mothers_name: values.mothersName,
+            mothers_occupation: values.mothersOccupation,
+            branch: values.branch,
+            physically_disabled: values.physicallyDisabled,
+            minority_details: values.minorityDetails,
+            jee_roll_no: values.jeeRollNo,
+            round_of_allotment: parseInt(values.roundOfAllotment),
+            air: parseInt(values.air),
+            percentile: parseFloat(values.percentile),
+            year: parseInt(values.year),
+            allotment_category: values.allotmentCategory,
+            candidate_category: values.candidateCategory,
+            seat_allotment_letter: seatAllotmentLetter,
+            jee_rank_card: jeeRankCard,
+            photo_id_proof: photoIdProof,
+            dob_proof: dobProof,
+            income_certificate: incomeCertificate,
+            aadhar_card: aadharCard,
+            caste_certificate: casteCertificate,
+            caste_validity: casteValidity,
+            obc_ncl_certificate: obcNclCertificate,
+            disability_certificate: disabilityCertificate,
+            transfer_certificate: transferCertificate,
+            migration_certificate: migrationCertificate,
+            gap_certificate: gapCertificate,
+            education: {
+              matric: {
+                board_name: values.matricBoardName,
+                year_of_passing: parseInt(values.matricYearOfPassing),
+                marks_obtained: parseInt(values.matricMarksObtained),
+                percentage: parseFloat(values.matricPercentage),
+              },
+              inter: {
+                board_name: values.interBoardName,
+                year_of_passing: parseInt(values.interYearOfPassing),
+                marks_obtained: parseInt(values.interMarksObtained),
+                percentage: parseFloat(values.interPercentage),
+              },
+            },
+            fee_details: {
+              at_jossa_counselling: {
+                dd_ecs_no: values.atJeeCounsellingDdEcsNo,
+                date:
+                  values.atJeeCounsellingDate.getFullYear() +
+                  "-" +
+                  parseInt(values.atJeeCounsellingDate.getMonth() + 1) +
+                  "-" +
+                  values.atJeeCounsellingDate.getDate(),
+                amount: parseInt(values.atJeeCounsellingAmount),
+              },
+              during_institute_reporting: {
+                dd_ecs_no: values.instituteReportingDdEcsNo,
+                date:
+                  values.instituteReportingDate.getFullYear() +
+                  "-" +
+                  parseInt(values.instituteReportingDate.getMonth() + 1) +
+                  "-" +
+                  values.instituteReportingDate.getDate(),
+                amount: parseInt(values.instituteReportingAmount),
+              },
+            },
+            address: {
+              permanent: {
+                street: values.permanentStreet,
+                city: values.permanentCity,
+                state: values.permanentState,
+                pincode: parseInt(values.permanentPincode),
+              },
+              correspondence: {
+                street: values.correspondenceStreet,
+                city: values.correspondenceCity,
+                state: values.correspondenceState,
+                pincode: parseInt(values.correspondencePincode),
+              },
+            },
+          },
+        };
+        console.log(payload);
+        const url = "http://localhost:5000/api/newAdmission";
+        const response = await apiCallPost(url, payload);
+        console.log(response);
+
+        // const filePayload = {
+        //   photo: values.profilePhoto[0],
+        //   seat_allotment_letter: values.seatAllotmentLetter[0],
+        //   jee_rank_card: values.jeeRankCard[0],
+        //   photo_id_proof: values.photoIdProof[0],
+        //   dob_proof: values.dobProof[0],
+        //   income_certificate: values.incomeCertificate[0],
+        //   aadhar_card: values.aadharCard[0],
+        //   caste_certificate: values.casteCertificate[0],
+        //   caste_validity: values.casteValidity[0],
+        //   obc_ncl_certificate: values.obcNclCertificate[0],
+        //   disability_certificate: values.disabilityCertificate[0],
+        //   transfer_certificate: values.transferCertificate[0],
+        //   migration_certificate: values.migrationCertificate[0],
+        //   gap_certificate: values.gapCertificate[0],
+        // };
       }
     },
     [steps, isLastStep, step, lastStepIndex]
@@ -264,6 +483,114 @@ export const Registration = () => {
                     label={"PINCODE"}
                     component={FormInput}
                     // validator={requiredValidator}
+                  />
+                </div>
+              ) : step === 5 ? (
+                <div>
+                  <div className="form-content-separator"></div>
+                  {/* <form> */}
+                  Seat Allotment Letter <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadSeatAllotmentLetter(e);
+                    }}
+                  />
+                  <br></br>
+                  JEE Rank Card <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadJeeRankCard(e);
+                    }}
+                  />
+                  <br></br>
+                  Photo ID Proof <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadPhotoIdProof(e);
+                    }}
+                  />
+                  <br></br>
+                  DoB Proof <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadDobProof(e);
+                    }}
+                  />
+                  <br></br>
+                  Income Certificate <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadIncomeCertificate(e);
+                    }}
+                  />
+                  <br></br>
+                  Aadhar Card <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadAadharCard(e);
+                    }}
+                  />
+                  <br></br>
+                  Caste Certificate <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadCasteCertificate(e);
+                    }}
+                  />
+                  <br></br>
+                  Caste Validity <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadCasteValidity(e);
+                    }}
+                  />
+                  <br></br>
+                  OBC NCL Certificate <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadObcNclCertificate(e);
+                    }}
+                  />
+                  <br></br>
+                  Disability Certificate <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadDisabilityCertificate(e);
+                    }}
+                  />
+                  <br></br>
+                  Transfer Certificate <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadTransferCertificate(e);
+                    }}
+                  />
+                  <br></br>
+                  Migration Certificate <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadMigrationCertificate(e);
+                    }}
+                  />
+                  <br></br>
+                  Gap Certificate <br></br>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      uploadGapCertificate(e);
+                    }}
                   />
                 </div>
               ) : (

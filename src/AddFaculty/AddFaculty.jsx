@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import { Form, FormElement } from "@progress/kendo-react-form";
 import { Button } from "@progress/kendo-react-buttons";
 import { Stepper } from "@progress/kendo-react-layout";
@@ -36,11 +37,11 @@ import {
   state_district,
 } from "../Helpers/Data";
 import { Link } from "react-router-dom";
-import "./SignUp.css";
-import { apiCallGet, apiCallPost } from "../ApiCall/ApiCall";
+import { apiCallGet, apiCallPost, apiCallPostToken } from "../ApiCall/ApiCall";
+import Cookies from "universal-cookie";
 // import apiCall from "./ApiCall";
 
-export const SignUp = () => {
+export const AddFaculty = () => {
   // const [step, setStep] = React.useState(0);
   const [formState, setFormState] = React.useState({});
   const [courses, setCourses] = React.useState([]);
@@ -64,6 +65,7 @@ export const SignUp = () => {
   }, []);
 
   const [correspondenceState, setCorrespondenceState] = React.useState("");
+  const history = useHistory();
   // const [permanentState, setPermanentState] = React.useState("");
 
   // const lastStepIndex = steps.length - 1;
@@ -91,19 +93,23 @@ export const SignUp = () => {
       if (values.TIS === true) selectedCourses = [...selectedCourses, 105];
       // });
       console.log(selectedCourses);
-      const url = "http://localhost:5000/api/register";
+      const url = "http://localhost:5000/api/addFaculty";
       const payload = {
-        user: {
-          username: values.username,
-          password: values.password,
-          year: values.year,
-          semester: values.semester,
-          section: values.section,
+        faculty: {
+          id: values.id,
+          name: values.name,
           courses: selectedCourses,
         },
       };
       // // const payload = JSON.stringify(values);
-      const response = await apiCallPost(url, payload);
+      const cookies = new Cookies();
+      const token = cookies.get("accessToken");
+      const response = await apiCallPostToken(url, payload, token);
+      if (response.success === true) {
+        alert("faculty added");
+        history.replace("/");
+        window.location.reload(true);
+      }
       // if (!!res.error) {
       //   throw Error(res.error);
       // }
@@ -119,7 +125,7 @@ export const SignUp = () => {
       //   body: JSON.stringify({
       //     user: {
       //       username: "BT21CSE001",
-      //       password: "ashishpassword",
+      //       Faculty Name: "ashishpassword",
       //       year: 3,
       //       semester: 6,
       //       section: "A",
@@ -166,55 +172,24 @@ export const SignUp = () => {
             >
               {
                 <div>
-                  <div className="head form-content-separator">Sign Up</div>
+                  <div className="head form-content-separator">Add Courses</div>
                   <Field
-                    key={"username"}
-                    id={"username"}
-                    name={"username"}
-                    label={"Username"}
+                    key={"id"}
+                    id={"id"}
+                    name={"id"}
+                    label={"Faculty ID"}
                     component={FormInput}
                     // validator={nameValidator}
                   />
                   <Field
-                    key={"password"}
-                    id={"password"}
-                    name={"password"}
-                    label={"Password"}
+                    key={"name"}
+                    id={"name"}
+                    name={"name"}
+                    label={"Faculty Name"}
                     component={FormInput}
                     // validator={requiredValidator}
                   />
-                  <Field
-                    key={"year"}
-                    id={"year"}
-                    name={"year"}
-                    label={"Year"}
-                    component={FormInput}
-                    // validator={requiredValidator}
-                  />
-                  <Field
-                    key={"semester"}
-                    id={"semester"}
-                    name={"semester"}
-                    label={"Semester"}
-                    component={FormInput}
-                    // validator={requiredValidator}
-                  />
-                  <Field
-                    key={"branch"}
-                    id={"branch"}
-                    name={"branch"}
-                    label={"Branch"}
-                    component={FormInput}
-                    // validator={requiredValidator}
-                  />
-                  <Field
-                    key={"section"}
-                    id={"section"}
-                    name={"section"}
-                    label={"Section"}
-                    component={FormInput}
-                    // validator={requiredValidator}
-                  />
+
                   <div className="courses_heading_signup">Courses Taken:</div>
                   {courses.map((course) => {
                     return (
@@ -272,20 +247,13 @@ export const SignUp = () => {
                 }}
                 className={"k-form-buttons k-buttons-end"}
               >
-                <span
-                  style={{
-                    alignSelf: "center",
-                  }}
-                >
-                  Already have an account? <Link to="/login"> Log In</Link>
-                </span>
                 <div>
                   <Button
                     primary={true}
                     // disabled={!formRenderProps.allowSubmit}
                     // onClick={formRenderProps.onSubmit}
                   >
-                    Sign Up
+                    Add
                   </Button>
                 </div>
               </div>
@@ -297,4 +265,4 @@ export const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default AddFaculty;

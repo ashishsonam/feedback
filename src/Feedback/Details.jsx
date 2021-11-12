@@ -16,7 +16,7 @@ export const Details = (
       name={"academicYear"}
       label={"Academic Year"}
       component={FormInput}
-      // validator={nameValidator}
+      validator={requiredValidator}
     />
     <Field
       key={"semester"}
@@ -36,7 +36,7 @@ export const Details = (
       layout={"horizontal"}
       component={FormInput}
       // data={genders}
-      // validator={requiredValidator}
+      validator={requiredValidator}
     />
     <Field
       key={"section"}
@@ -45,6 +45,7 @@ export const Details = (
       label={"Section"}
       // optional={true}
       component={FormInput}
+      validator={requiredValidator}
     />
   </div>
 );

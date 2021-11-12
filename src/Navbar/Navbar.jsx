@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as ReactDOM from "react-dom";
 import {
   Avatar,
@@ -7,9 +7,11 @@ import {
   AppBarSection,
   AppBarSpacer,
 } from "@progress/kendo-react-layout";
+import Cookies from "universal-cookie";
 import { Badge, BadgeContainer } from "@progress/kendo-react-indicators";
 import { Popup } from "@progress/kendo-react-popup";
 import "./Navbar.css";
+import { apiCallGetToken } from "../ApiCall/ApiCall";
 let kendokaAvatar =
   "https://www.telerik.com/kendo-react-ui-develop/images/kendoka-react.png";
 
@@ -21,6 +23,40 @@ const Navbar = () => {
     setShow(!show);
   };
 
+  const [name, setName] = React.useState("");
+  const [username, setUserame] = React.useState("");
+  const [isExpired, setIsExpired] = React.useState(false);
+  const history = useHistory();
+
+  React.useEffect(async () => {
+    const cookies = new Cookies();
+    const accessToken = cookies.get("accessToken");
+    console.log(accessToken);
+
+    const url = "http://localhost:5000/api/getName";
+    const usernameUrl = "http://localhost:5000/api/getUsername";
+    const res = await apiCallGetToken(url, accessToken);
+    const usernameRes = await apiCallGetToken(usernameUrl, accessToken);
+    // console.log(usernameRes);
+    if (usernameRes.success === true) {
+      setUserame(usernameRes.username);
+    }
+    if (res.success === true) {
+      // const result = res.msg;
+      setName(res.msg);
+    }
+    // const initialState = result.map((e) => e);
+    // setCourses(initialState);
+  }, []);
+
+  const onLogout = () => {
+    const cookies = new Cookies();
+    cookies.remove("accessToken");
+    history.replace("/login");
+    window.location.reload(true);
+  };
+
+  // console.log(`username = ${username}, name = ${name}`);
   return (
     <React.Fragment>
       <AppBar>
@@ -37,32 +73,73 @@ const Navbar = () => {
         />
 
         <AppBarSection className="appbar-items">
-          <ul className="appbar">
-            {/* <li><span>ADMIN</span></li> */}
-            <Link to="/registration">
-              <li>
-                <span>REGISTRATION</span>
-              </li>
-            </Link>
-            <Link to="/feedback">
-              <li>
-                <span>FEEDBACK</span>
-              </li>
-            </Link>
-          </ul>
+          {username === "" ? (
+            <ul className="appbar">
+              <Link to="/registration">
+                <li>
+                  <span>REGISTRATION</span>
+                </li>
+              </Link>
+            </ul>
+          ) : username === "admin" ? (
+            <ul className="appbar">
+              <Link to="/approve">
+                <li>
+                  <span>APPROVE REGISTRATIONS</span>
+                </li>
+              </Link>
+              <Link to="/showFeedback">
+                <li>
+                  <span>SHOW FEEDBACK</span>
+                </li>
+              </Link>
+              <Link to="/addCourses">
+                <li>
+                  <span>ADD COURSE</span>
+                </li>
+              </Link>
+              <Link to="/addFaculty">
+                <li>
+                  <span>ADD FACULTY</span>
+                </li>
+              </Link>
+            </ul>
+          ) : (
+            <ul className="appbar">
+              <Link to="/feedback">
+                <li>
+                  <span>FEEDBACK</span>
+                </li>
+              </Link>
+            </ul>
+          )}
         </AppBarSection>
 
         <AppBarSpacer />
 
         <AppBarSection className="appbar-items">
-          <ul className="appbar">
-            {/* <li><span>ADMIN</span></li> */}
-            <Link to="/login">
-              <li>
-                <span>LOGIN / SIGN UP</span>
-              </li>
-            </Link>
-          </ul>
+          {name === "" ? (
+            <ul className="appbar">
+              <Link to="/login">
+                <li>
+                  <span>LOGIN / SIGN UP</span>
+                </li>
+              </Link>
+            </ul>
+          ) : (
+            <ul className="appbar">
+              <Link to="/">
+                <li>
+                  Hi, <span>{name}</span>
+                </li>
+              </Link>
+              <Link to="/login">
+                <li onClick={onLogout}>
+                  <span>LOGOUT</span>
+                </li>
+              </Link>
+            </ul>
+          )}
         </AppBarSection>
 
         {/* <AppBarSection className="user-actions">
