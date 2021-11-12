@@ -32,7 +32,7 @@ export const JeeDetails = (
       label={"JEE Roll Number"}
       component={FormInput}
       // validator={nameValidator}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"roundOfAllotment"}
@@ -44,7 +44,7 @@ export const JeeDetails = (
       component={FormDropDownList}
       data={roundOfAllotment}
       // data={genders}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"air"}
@@ -53,7 +53,7 @@ export const JeeDetails = (
       label={"AIR"}
       component={FormInput}
       // data={genders}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"percentile"}
@@ -62,7 +62,7 @@ export const JeeDetails = (
       label={"Percentile"}
       // optional={true}
       component={FormInput}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"year"}
@@ -71,7 +71,7 @@ export const JeeDetails = (
       label={"Year"}
       // optional={true}
       component={FormInput}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"allotmentCategory"}
@@ -80,7 +80,7 @@ export const JeeDetails = (
       label={"Allotment Category"}
       // optional={true}
       component={FormDropDownList}
-      validator={requiredValidator}
+      // validator={requiredValidator}
       data={category}
     />
     <Field
@@ -90,7 +90,7 @@ export const JeeDetails = (
       label={"Candidate Category"}
       // optional={true}
       component={FormDropDownList}
-      validator={requiredValidator}
+      // validator={requiredValidator}
       data={category}
     />
   </div>

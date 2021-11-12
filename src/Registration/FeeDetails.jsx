@@ -33,7 +33,7 @@ export const FeeDetails = (
       label={"DD/ECS No"}
       component={FormInput}
       // validator={nameValidator}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"atJeeCounsellingDate"}
@@ -42,7 +42,7 @@ export const FeeDetails = (
       label={"Date"}
       component={FormDatePicker}
       // data={genders}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"atJeeCounsellingAmount"}
@@ -55,7 +55,7 @@ export const FeeDetails = (
       // data={}
       // data={roundOfAllotment}
       // data={genders}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     {/* <span
       style={{
@@ -73,7 +73,7 @@ export const FeeDetails = (
       label={"DD/ECS No"}
       component={FormInput}
       // validator={nameValidator}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"instituteReportingDate"}
@@ -82,7 +82,7 @@ export const FeeDetails = (
       label={"Date"}
       component={FormDatePicker}
       // data={genders}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"instituteReportingAmount"}
@@ -95,7 +95,7 @@ export const FeeDetails = (
       // data={}
       // data={roundOfAllotment}
       // data={genders}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
   </div>
 );

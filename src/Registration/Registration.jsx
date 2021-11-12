@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import { Form, FormElement } from "@progress/kendo-react-form";
 import { Button } from "@progress/kendo-react-buttons";
 import { Stepper } from "@progress/kendo-react-layout";
@@ -76,7 +77,7 @@ export const Registration = () => {
   ]);
 
   const [correspondenceState, setCorrespondenceState] = React.useState("");
-  const [profilePhoto, setProfilePhoto] = React.useState("");
+  // const [profilePhoto, setProfilePhoto] = React.useState("");
   const [seatAllotmentLetter, setSeatAllotmentLetter] = React.useState("");
   const [jeeRankCard, setJeeRankCard] = React.useState("");
   const [photoIdProof, setPhotoIdProof] = React.useState("");
@@ -91,89 +92,190 @@ export const Registration = () => {
   const [migrationCertificate, setMigrationCertificate] = React.useState("");
   const [gapCertificate, setGapCertificate] = React.useState("");
 
-  const uploadProfilePhoto = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertBase64(file);
-    // console.log(base64);
-    setProfilePhoto(base64);
-  };
+  // const uploadProfilePhoto = async (e) => {
+  //   const file = e.target.files[0];
+  //   const base64 = await convertBase64(file);
+  //   // console.log(base64);
+  //   setProfilePhoto(base64);
+  // };
+  let seatAllotmentLetterDuplicate;
+  let jeeRankCardDuplicate;
+  let photoIdProofDuplicate;
+  let dobProofDuplicate;
+  let incomeCertificateDuplicate;
+  let aadharCardDuplicate;
+  let casteCertificateDuplicate;
+  let casteValidityDuplicate;
+  let obcNclCertificateDuplicate;
+  let disabilityCertificateDuplicate;
+  let transferCertificateDuplicate;
+  let migrationCertificateDuplicate;
+  let gapCertificateDuplicate;
+
   const uploadSeatAllotmentLetter = async (e) => {
+    // console.log("entered");
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
-    // console.log(base64);
-    setSeatAllotmentLetter(base64);
+    console.log(base64);
+    seatAllotmentLetterDuplicate = base64;
+    console.log(seatAllotmentLetterDuplicate);
+    // setSeatAllotmentLetter(base64);
+    // setSeatAllotmentLetter(
+    //   (seatAllotmentLetter) => (seatAllotmentLetter = base64)
+    // );
+    // setSeatAllotmentLetter((state) => {
+    //   console.log(state); // "React is awesome!"
+    //   seatAllotmentLetterDuplicate = state;
+
+    //   return state;
+    // });
+    // console.log(seatAllotmentLetter);
+    // console.log("khatam");
   };
+
   const uploadJeeRankCard = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setJeeRankCard(base64);
+    // setJeeRankCard(base64);
+    // setJeeRankCard((state) => {
+    //   console.log(state); // "React is awesome!"
+    jeeRankCardDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadPhotoIdProof = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setPhotoIdProof(base64);
+    // setPhotoIdProof(base64);
+    // setPhotoIdProof((state) => {
+    //   console.log(state); // "React is awesome!"
+    photoIdProofDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadDobProof = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setDobProof(base64);
+    // setDobProof(base64);
+    // setDobProof((state) => {
+    //   console.log(state); // "React is awesome!"
+    dobProofDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadIncomeCertificate = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setIncomeCertificate(base64);
+    // setIncomeCertificate(base64);
+    // setIncomeCertificate((state) => {
+    //   console.log(state); // "React is awesome!"
+    incomeCertificateDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadAadharCard = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setAadharCard(base64);
+    // setAadharCard(base64);
+    // setAadharCard((state) => {
+    //   console.log(state); // "React is awesome!"
+    aadharCardDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadCasteCertificate = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setCasteCertificate(base64);
+    // setCasteCertificate(base64);
+    // setCasteCertificate((state) => {
+    //   console.log(state); // "React is awesome!"
+    casteCertificateDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadCasteValidity = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setCasteValidity(base64);
+    // setCasteValidity(base64);
+    // setCasteValidity((state) => {
+    //   console.log(state); // "React is awesome!"
+    casteValidityDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadObcNclCertificate = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setObcNclCertificate(base64);
+    // setObcNclCertificate(base64);
+    // setObcNclCertificate((state) => {
+    //   console.log(state); // "React is awesome!"
+    obcNclCertificateDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadDisabilityCertificate = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setDisabilityCertificate(base64);
+    // setDisabilityCertificate(base64);
+    // setDisabilityCertificate((state) => {
+    //   console.log(state); // "React is awesome!"
+    disabilityCertificateDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadTransferCertificate = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setTransferCertificate(base64);
+    // setTransferCertificate(base64);
+    // setTransferCertificate((state) => {
+    //   console.log(state); // "React is awesome!"
+    transferCertificateDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadMigrationCertificate = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setMigrationCertificate(base64);
+    // setMigrationCertificate(base64);
+    // setMigrationCertificate((state) => {
+    //   console.log(state); // "React is awesome!"
+    migrationCertificateDuplicate = base64;
+
+    //   return state;
+    // });
   };
   const uploadGapCertificate = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     // console.log(base64);
-    setGapCertificate(base64);
+    // setGapCertificate(base64);
+    // setGapCertificate((state) => {
+    //   console.log(state); // "React is awesome!"
+    gapCertificateDuplicate = base64;
+
+    //   return state;
+    // });
   };
 
   const convertBase64 = (file) => {
@@ -194,6 +296,19 @@ export const Registration = () => {
 
   const lastStepIndex = steps.length - 1;
   const isLastStep = lastStepIndex === step;
+
+  // const uploadSeatAllotmentLetter = React.useCallback(async (e) => {
+  //   // const uploadSeatAllotmentLetter = async (e) => {
+  //   console.log("entered");
+  //   const file = e.target.files[0];
+  //   const base64 = await convertBase64(file);
+  //   console.log(base64);
+  //   setSeatAllotmentLetter(base64);
+  //   console.log(seatAllotmentLetter);
+  //   console.log("khatam");
+  //   // };
+  // });
+  // const history = useHistory();
   const onStepSubmit = React.useCallback(
     async (event) => {
       const { isValid, values } = event;
@@ -214,8 +329,10 @@ export const Registration = () => {
 
       if (isLastStep) {
         alert(JSON.stringify(values));
-        // console.log(values.profilePhoto);
         console.log(seatAllotmentLetter);
+
+        // console.log(values.profilePhoto);
+        // console.log(seatAllotmentLetter);
 
         const payload = {
           form: {
@@ -249,19 +366,31 @@ export const Registration = () => {
             year: parseInt(values.year),
             allotment_category: values.allotmentCategory,
             candidate_category: values.candidateCategory,
-            seat_allotment_letter: seatAllotmentLetter,
-            jee_rank_card: jeeRankCard,
-            photo_id_proof: photoIdProof,
-            dob_proof: dobProof,
-            income_certificate: incomeCertificate,
-            aadhar_card: aadharCard,
-            caste_certificate: casteCertificate,
-            caste_validity: casteValidity,
-            obc_ncl_certificate: obcNclCertificate,
-            disability_certificate: disabilityCertificate,
-            transfer_certificate: transferCertificate,
-            migration_certificate: migrationCertificate,
-            gap_certificate: gapCertificate,
+            seat_allotment_letter: seatAllotmentLetterDuplicate,
+            jee_rank_card: jeeRankCardDuplicate,
+            photo_id_proof: photoIdProofDuplicate,
+            dob_proof: dobProofDuplicate,
+            income_certificate: incomeCertificateDuplicate,
+            aadhar_card: aadharCardDuplicate,
+            caste_certificate: casteValidityDuplicate,
+            caste_validity: casteValidityDuplicate,
+            obc_ncl_certificate: obcNclCertificateDuplicate,
+            disability_certificate: disabilityCertificateDuplicate,
+            transfer_certificate: transferCertificateDuplicate,
+            migration_certificate: migrationCertificateDuplicate,
+            gap_certificate: gapCertificateDuplicate,
+            // jee_rank_card: jeeRankCard,
+            // photo_id_proof: photoIdProof,
+            // dob_proof: dobProof,
+            // income_certificate: incomeCertificate,
+            // aadhar_card: aadharCard,
+            // caste_certificate: casteCertificate,
+            // caste_validity: casteValidity,
+            // obc_ncl_certificate: obcNclCertificate,
+            // disability_certificate: disabilityCertificate,
+            // transfer_certificate: transferCertificate,
+            // migration_certificate: migrationCertificate,
+            // gap_certificate: gapCertificate,
             education: {
               matric: {
                 board_name: values.matricBoardName,
@@ -314,10 +443,12 @@ export const Registration = () => {
             },
           },
         };
-        console.log(payload);
+        // console.log(payload);
         const url = "http://localhost:5000/api/newAdmission";
         const response = await apiCallPost(url, payload);
         console.log(response);
+        // history.replace("/");
+        // window.location.reload(true);
 
         // const filePayload = {
         //   photo: values.profilePhoto[0],
@@ -493,7 +624,9 @@ export const Registration = () => {
                   <input
                     type="file"
                     onChange={(e) => {
+                      console.log("started");
                       uploadSeatAllotmentLetter(e);
+                      console.log("exited");
                     }}
                   />
                   <br></br>

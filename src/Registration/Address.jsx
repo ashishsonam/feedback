@@ -36,7 +36,7 @@ export const Address = (
       label={"Street"}
       component={FormInput}
       // validator={nameValidator}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"correspondenceState"}
@@ -51,7 +51,7 @@ export const Address = (
         });
         return stateNames;
       })()}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"correspondenceCity"}
@@ -82,7 +82,7 @@ export const Address = (
         // return state;
         return stateInfo.districts;
       })()}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"correspondencePincode"}
@@ -95,7 +95,7 @@ export const Address = (
       // data={}
       // data={roundOfAllotment}
       // data={genders}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <div className="head form-content-separator">Permanent</div>
     <Field
@@ -105,7 +105,7 @@ export const Address = (
       label={"Street"}
       component={FormInput}
       // validator={nameValidator}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"permanentState"}
@@ -115,7 +115,7 @@ export const Address = (
       component={FormDropDownList}
       data={genders}
       // validator={requiredValidator}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"permanentCity"}
@@ -128,7 +128,7 @@ export const Address = (
       // data={}
       // data={roundOfAllotment}
       data={genders}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
     <Field
       key={"permanentPincode"}
@@ -141,7 +141,7 @@ export const Address = (
       // data={}
       // data={roundOfAllotment}
       // data={genders}
-      validator={requiredValidator}
+      // validator={requiredValidator}
     />
   </div>
 );
