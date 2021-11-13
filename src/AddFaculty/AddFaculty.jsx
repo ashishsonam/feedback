@@ -172,7 +172,7 @@ export const AddFaculty = () => {
             >
               {
                 <div>
-                  <div className="head form-content-separator">Add Courses</div>
+                  <div className="head form-content-separator">Add Faculty</div>
                   <Field
                     key={"id"}
                     id={"id"}

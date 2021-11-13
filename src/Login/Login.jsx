@@ -119,6 +119,7 @@ export const Login = () => {
       };
       // // const payload = JSON.stringify(values);
       const response = await apiCallPost(url, payload);
+      console.log(response);
       if (response.success === true) {
         const cookies = new Cookies();
         cookies.set("accessToken", response.accessToken, { path: "/" });
